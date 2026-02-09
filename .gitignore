@@ -1,0 +1,73 @@
+# ==============================
+# Django
+# ==============================
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# ==============================
+# Environment & Secrets
+# ==============================
+.env
+.env.*
+*.env
+.venv
+secrets.json
+
+# ==============================
+# Virtual Environment
+# ==============================
+venv/
+env/
+ENV/
+.venv/
+
+# ==============================
+# Python
+# ==============================
+*.py[cod]
+*$py.class
+
+# ==============================
+# Static files (collected)
+# ==============================
+staticfiles/
+
+# ==============================
+# Django settings overrides
+# ==============================
+local_settings.py
+
+# ==============================
+# IDE / Editor
+# ==============================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==============================
+# OS Files
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Testing / Coverage
+# ==============================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# ==============================
+# Migrations (optional)
+# ==============================
+# Uncomment only if you *know* what you're doing
+# **/migrations/*.py
+# !**/migrations/__init__.py
