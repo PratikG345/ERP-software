@@ -69,5 +69,5 @@ htmlcov/
 # Migrations (optional)
 # ==============================
 # Uncomment only if you *know* what you're doing
-# **/migrations/*.py
-# !**/migrations/__init__.py
+**/migrations/__pycache__/
+
