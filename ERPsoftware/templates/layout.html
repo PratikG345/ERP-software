@@ -1,72 +1,218 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
-        {% block title %}
-        ERP software
-        {% endblock %}
+        {% block title %}ERP Software{% endblock %}
     </title>
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
-        crossorigin="anonymous">
-        <link 
-            rel="stylesheet" 
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
-            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
-            crossorigin="anonymous" 
-            referrerpolicy="no-referrer" />
 
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous"
+    >
 
-</head>
-<body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar scroll</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Link
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                </div>
-            </div>
-            </nav>
-        {% block content %}
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous"
+    >
+
+    <style>
+        /* Custom DarkPan Theme */
+        .darkpan-sidebar {
+            background-color: #1e1e2d !important;
+        }
         
-        {% endblock %}
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
-        crossorigin="anonymous">
+        .darkpan-topbar {
+            background-color: #1e1e2d !important;
+            border-bottom: 1px solid #2d2d3d;
+        }
+        
+        .sidebar-link {
+            border-radius: 8px;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: black !important;
+            color : red !important;
+            border-radius: 50px;
+        }
+        
+        .user-img-border {
+            border: 2px solid #ff5e5e;
+        }
+        
+        .search-input {
+            background-color: #2d2d3d !important;
+            border: 1px solid #2d2d3d !important;
+            border-radius: 20px !important;
+        }
+        .hello::placeholder{
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff5e5e;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body class="bg-dark m-0" style="background-color: #12121b;">
+
+<div class="container-fluid">
+    <div class="row min-vh-100">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="col-md-3 col-lg-2 p-0 d-flex flex-column darkpan-sidebar" style="background-color: #1e1e2d;">
+
+            <nav class="navbar navbar-dark flex-column align-items-start py-3 px-2">
+
+                <!-- Brand -->
+                <div class="px-3 py-2 mb-4">
+                    <h3 class="text-danger m-0 fw-bold">
+                        <i class="fa fa-user-edit me-2"></i>DarkPan
+                    </h3>
+                </div>
+
+                <!-- User -->
+                <div class="d-flex align-items-center px-3 mb-4">
+                    <img
+                        src="{% static 'img/user.jpg' %}"
+                        class="rounded-circle me-3 user-img-border"
+                        width="45"
+                        height="45"
+                        alt="user"
+                    >
+                    <div>
+                        <div class="fw-semibold text-light fs-4">Jhon Doe</div>
+                        <small class="text-white fs-5">Admin</small>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="navbar-nav w-100 px-2">
+                    <a class="nav-link sidebar-link active px-3 py-2 mb-1 fs-4" href="#" style="background-color: #ff5e5e;">
+                        <i class="fa fa-gauge me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-laptop me-2"></i>Elements
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-th me-2"></i>Widgets
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-keyboard me-2"></i>Forms
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-table me-2"></i>Tables
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-chart-bar me-2"></i>Charts
+                    </a>
+                    <a class="nav-link sidebar-link px-3 py-2 mb-1 text-light fs-4" href="#">
+                        <i class="fa fa-file me-2"></i>Pages
+                    </a>
+                </div>
+
+            </nav>
+        </div>
+        <!-- =============== SIDEBAR END =============== -->
+
+
+        <!-- ================= MAIN SHELL ================= -->
+        <div class="col-md-9 col-lg-10 p-0 d-flex flex-column">
+
+            <!-- Top Navbar -->
+            <nav class="navbar navbar-expand navbar-dark darkpan-topbar px-4 py-3" style="background-color: #1e1e2d;">
+                
+                <!-- Search Bar -->
+                <form class="d-flex flex-grow-1 me-4">
+                    <div class="input-group" style="max-width: 400px;">
+                        <span class="input-group-text bg-transparent border-0 text-white">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <input class="form-control search-input text-light px-0 hello" 
+                               type="search" 
+                               placeholder="Search">
+                    </div>
+                </form>
+
+                <!-- Right Side Items -->
+                <div class="navbar-nav align-items-center">
+                    <!-- Messages -->
+                    <a class="nav-link position-relative me-4" href="#">
+                        <i class="fa fa-envelope text-light fa-lg"></i>
+                        <span class="notification-badge">3</span>
+                    </a>
+
+                    <!-- Notifications -->
+                    <a class="nav-link position-relative me-4" href="#">
+                        <i class="fa fa-bell text-light fa-lg"></i>
+                        <span class="notification-badge">5</span>
+                    </a>
+
+                    <!-- User Profile -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center text-light" href="#" data-bs-toggle="dropdown">
+                            <img src="{% static 'img/user.jpg' %}"
+                                 class="rounded-circle me-2"
+                                 width="36"
+                                 height="36"
+                                 alt="Profile">
+                            John Doe
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end darkpan-sidebar border-0">
+                            <a class="dropdown-item text-light" href="#">
+                                <i class="fa fa-user me-2"></i>Profile
+                            </a>
+                            <a class="dropdown-item text-light" href="#">
+                                <i class="fa fa-cog me-2"></i>Settings
+                            </a>
+                            <div class="dropdown-divider" style="border-color: #2d2d3d;"></div>
+                            <a class="dropdown-item text-light" href="#">
+                                <i class="fa fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Empty Main Content Area -->
+            <main class="flex-grow-1 px-4 text-light" style="background-color: #12121b;" >
+                {% block content %}
+                <h1>Hello World!</h1>
+                {% endblock %}
+            </main>
+
+        </div>
+        <!-- =============== MAIN SHELL END =============== -->
+
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous">
 </script>
 
 </body>
