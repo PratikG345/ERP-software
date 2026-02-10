@@ -38,3 +38,9 @@ class ItemType(models.Model):
     
     def __str__(self):
         return f"{self.item_code} - {self.category}"
+    
+class Category(models.Model):
+    category = models.CharField(max_length=100)
+    def __str__(self):
+        return f"{self.category}"
+
