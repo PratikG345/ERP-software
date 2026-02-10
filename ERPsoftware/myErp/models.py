@@ -30,3 +30,10 @@ class HSNcode(models.Model):
         
     def __str__(self):
         return f"{self.hsn_code}"
+    
+class itemType(models.Model):
+    item_code = models.CharField(max_length=2,unique=True)
+    category = models.CharField(max_length=50,unique=True)
+    
+    def __str__(self):
+        return f"{self.item_code} - {self.category}"
