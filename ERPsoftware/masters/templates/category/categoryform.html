@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}
-{% if catform.instance.pk %}Edit Category
+{% if Catform.instance.pk %}Edit Category
 {% else %}
 Add Category
 {% endif %}
 {% endblock %}
 {% block content %}
 <h1>
-    {% if catform.instance.pk %}
+    {% if Catform.instance.pk %}
     Edit Category
     {% else %}
     ADD Category
@@ -15,7 +15,7 @@ Add Category
 </h1>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ Catform.as_p }}
     <button class="btn btn-warning">Submit</button>
 </form>
 {% endblock %}

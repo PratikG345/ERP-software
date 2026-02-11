@@ -16,7 +16,7 @@ urlpatterns = [
     
     path('category/',category,name="category"),
     path('categorylocation/add_category',add_category,name="add_category"),
-    path('categorylocation/edit_category/<int:store_id>',edit_category,name="edit_category"),
-    path('categorylocation/delete_category/<int:store_id>',delete_category,name="delete_category"),
+    path('categorylocation/edit_category/<int:cat_id>',edit_category,name="edit_category"),
+    path('categorylocation/delete_category/<int:cat_id>',delete_category,name="delete_category"),
     path('uommaster/',uommaster,name="uommaster"),
 ]

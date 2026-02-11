@@ -17,7 +17,7 @@ def saccode(req):
 
 def category(req):
     category = Category.objects.all()
-    return render(req,'category.html',{'category':category})
+    return render(req,'category/category.html',{'category':category})
 
 def add_category(req):
     if req.method == "POST":
@@ -27,7 +27,7 @@ def add_category(req):
             return redirect('category')
     else:
         form = CatForm()
-    return render(req,'categoryform.html',{'form':form})
+    return render(req,'category/categoryform.html',{'Catform':form})
 
 def edit_category(req,cat_id):
     category = get_object_or_404(Category,pk=cat_id)
@@ -38,7 +38,7 @@ def edit_category(req,cat_id):
             return redirect('category')
     else:
         form = CatForm(instance = category)
-    return render(req,'categoryform.html',{'form':form})
+    return render(req,'category/categoryform.html',{'Catform':form})
         
 def delete_category(req,cat_id):
     category = get_object_or_404(Category,pk=cat_id)
@@ -48,7 +48,7 @@ def delete_category(req,cat_id):
 # -------------------------------------
 def stocklocation(req):
     stock = StockLocation.objects.all()
-    return render(req,'stocklocation.html',{'stock':stock})
+    return render(req,'stock/stocklocation.html',{'stock':stock})
 
 def add_stck_loc(req):
     if req.method == "POST":
@@ -58,7 +58,7 @@ def add_stck_loc(req):
             return redirect('stocklocation')
     else:
         stockform = StockLocForm()
-    return render(req,'stockform.html',{'stockform':stockform})
+    return render(req,'stock/stockform.html',{'stockform':stockform})
 
 def edit_stck_loc(req,store_id):
     stock = get_object_or_404(StockLocation,pk=store_id)
@@ -69,7 +69,7 @@ def edit_stck_loc(req,store_id):
             return redirect('stocklocation')
     else:
         stockform = StockLocForm(instance=stock)
-    return render(req,'stockform.html',{'stockform':stockform})
+    return render(req,'stock/stockform.html',{'stockform':stockform})
 
 def delete_stck_loc(req,store_id):
     stock = get_object_or_404(StockLocation,pk=store_id)
