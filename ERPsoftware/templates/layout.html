@@ -60,11 +60,15 @@
                     <li class="nav-item">
                         <a href="#homeMenu" data-bs-toggle="collapse" class="nav-link">
                             <i class="bi-house me-2"></i>
-                            <span class="d-none d-sm-inline">Home</span>
+                            <span class="d-none d-sm-inline">Masters</span>
                         </a>
                         <ul class="collapse nav flex-column" id="homeMenu" data-bs-parent="#menu">
-                            <li><a href="#" class="nav-link">Overview</a></li>
-                            <li><a href="#" class="nav-link">Activity</a></li>
+                            <li><a href="{% url 'itemMaster' %}" class="nav-link">Item Master</a></li>
+                            <li><a href="{% url 'hsncode' %}" class="nav-link">HSN Master</a></li>
+                            <li><a href="{% url 'saccode' %}" class="nav-link">SAC Master</a></li>
+                            <li><a href="{% url 'uommaster' %}" class="nav-link">Unit Master</a></li>
+                            <li><a href="{% url 'stocklocation' %}" class="nav-link">Stock Location</a></li>
+                            <li><a href="{% url 'category' %}" class="nav-link">Category Master</a></li>
                         </ul>
                     </li>
 
