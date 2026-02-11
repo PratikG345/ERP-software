@@ -10,3 +10,8 @@ class CatForm(forms.ModelForm):
     class Meta:
         model = Category;
         fields = ['category']
+
+class UnitForm(forms.ModelForm):
+    class Meta:
+        model = UOMMaster;
+        fields = ['unit','fullform']
