@@ -3,5 +3,23 @@
 Category Creation
 {% endblock %}
 {% block content %}
-<h1>Category Creation Page</h1>
+<h1>All Stores</h1>
+<table class="table border-1">
+    <tr>
+        <th>Sr. No.</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in category %}
+    <tr>
+        <th>{{ forloop.counter }}</th>
+        <th>{{ i.category }}</th>
+        <th>
+            <a class="btn btn-primary" href="{% url 'edit_category' i.id %}" >Edit</a>
+            <a class="btn btn-danger"href="{% url 'delete_category' i.id %}">Delete</a>
+        </th>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'add_category' %}" class="btn btn-primary">Add Store</a>
 {% endblock %}

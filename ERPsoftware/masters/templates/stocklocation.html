@@ -3,5 +3,23 @@
 Stock Location Creation
 {% endblock %}
 {% block content %}
-<h1>Stock Location Creation Page</h1>
+<h1>All Stores</h1>
+<table class="table border-1">
+    <tr>
+        <th>Sr. No.</th>
+        <th>Store Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in stock %}
+    <tr>
+        <th>{{ forloop.counter }}</th>
+        <th>{{ i.store }}</th>
+        <th>
+            <a class="btn btn-primary" href="{% url 'edit_stck_loc' i.id %}" >Edit</a>
+            <a class="btn btn-danger"href="{% url 'delete_stck_loc' i.id %}">Delete</a>
+        </th>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'add_stck_loc' %}" class="btn btn-primary">Add Store</a>
 {% endblock %}
