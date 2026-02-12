@@ -28,6 +28,9 @@ def edit_hsn(req,hsn_id):
     hsn = get_object_or_404(HSNCode,pk=hsn_id)
     if req.method == "POST":
         hsnform = HSNForm(req.POST,instance=hsn)
+        if hsnform.is_valid():
+            hsnform.save()
+            return redirect('hsncode')
     else:
         hsnform = HSNForm(instance=hsn)
     return render(req,'hsn/hsnform.html',{'hsnform':hsnform})
