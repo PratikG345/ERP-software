@@ -20,3 +20,8 @@ class HSNForm(forms.ModelForm):
     class Meta:
         model = HSNCode
         fields = ['hsn_code','description','igst','cess']
+        
+class SACForm(forms.ModelForm):
+    class Meta:
+        model = SACCode
+        fields = ['sac_code','description','igst','cess']
