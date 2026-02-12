@@ -15,3 +15,8 @@ class UnitForm(forms.ModelForm):
     class Meta:
         model = UOMMaster;
         fields = ['unit','fullform']
+        
+class HSNForm(forms.ModelForm):
+    class Meta:
+        model = HSNCode
+        fields = ['hsn_code','description','igst','cess']
