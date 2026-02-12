@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster
-from .forms import StockLocForm, CatForm, UnitForm
+from .forms import StockLocForm, CatForm, UnitForm, HSNForm
 # Create your views here.
 
 def home(req):
@@ -9,8 +9,34 @@ def home(req):
 def itemMaster(req):
     return render(req,'item_master.html')
 
+# -------- HSN View Start------------------
 def hsncode(req):
-    return render(req,'hsncode.html')
+    hsn = HSNCode.objects.all()
+    return render(req,'hsncode.html'{'hsn':hsn})
+
+def add_hsn(req):
+    if req.method == "POST":
+        hsnform = HSNForm(req.POST)
+        if hsnform.is_valid():
+            hsnform.save()
+            return redirect('hsncode')
+    else:
+        hsnform = HSNForm()
+    return render(req,'hsnform.html',{'hsnform':hsnform})
+
+def edit_hsn(req,hsn_id):
+    hsn = get_object_or_404(HSNCode,pk=hsn_id)
+    if req.method == "POST":
+        hsnform = HSNForm(req.POST,instance=hsn)
+    else:
+        hsnform = HSNForm(instance=hsn)
+    return render(req,'hsnform.html',{'hsnform':hsnform})
+
+def delete_hsn(req,hsn_id):
+    hsn = get_object_or_404(HSNCode,pk=hsn_id)
+    hsn.delete()
+    return redirect('hsncode')
+# -------- HSN View End------------------
 
 def saccode(req):
     return render(req,'saccode.html')
