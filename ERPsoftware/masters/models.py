@@ -90,12 +90,12 @@ class ItemMaster(models.Model):
         ("Services","Services"),
     ]
     itemtype_choices = [
-        ("FG","Finished Goods"),
-        ("SFG","Semi-Finished Goods"),
-        ("RM","Raw Materials"),
-        ("CN","Consumables"),
-        ("HW","Hardware"),
-        ("OTH","Others"),
+        ("Finished Goods","FG",),
+        ("Semi-Finished Goods","SFG",),
+        ("Raw Materials","RM",),
+        ("Consumables","CN",),
+        ("Hardware","HW",),
+        ("Others","OTH",),
     ]
     name = models.CharField(max_length=200,unique=True)
     print_name = models.CharField(max_length=200,blank=True,null=True)
