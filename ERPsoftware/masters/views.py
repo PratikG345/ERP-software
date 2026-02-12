@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster
-from .forms import StockLocForm, CatForm
+from .forms import StockLocForm, CatForm, UnitForm
 # Create your views here.
 
 def home(req):
@@ -14,7 +14,7 @@ def hsncode(req):
 
 def saccode(req):
     return render(req,'saccode.html')
-
+# -------- Category View Start------------------
 def category(req):
     category = Category.objects.all()
     return render(req,'category/category.html',{'category':category})
@@ -44,8 +44,9 @@ def delete_category(req,cat_id):
     category = get_object_or_404(Category,pk=cat_id)
     category.delete()
     return redirect('category')
+# -------- Category View End------------------
 
-# -------------------------------------
+# -------- Stock View Start------------------
 def stocklocation(req):
     stock = StockLocation.objects.all()
     return render(req,'stock/stocklocation.html',{'stock':stock})
@@ -75,8 +76,36 @@ def delete_stck_loc(req,store_id):
     stock = get_object_or_404(StockLocation,pk=store_id)
     stock.delete()
     return redirect('stocklocation')
+# -------- Stock View End------------------+
 
-# --------------------------------------
+# -------- UOM View Start------------------
 def uommaster(req):
-    return render(req,'uommaster.html')
+    uom = UOMMaster.objects.all()
+    return render(req,'uommaster.html',{'uom':uom})
 
+def create_unit(req):
+    if req.method == "POST":
+        unitform = UnitForm(req.POST)
+        if unitform.is_valid()
+        unitform.save()
+        return redirect('uommaster')
+    else:
+        unitform = UnitForm()
+    return render(req,'unitform.html',{'unitform':unitform})
+
+def edit_unit(req,unit_id):
+    unit = get_object_or_404(UOMMaster,pk=unit_id)
+    if req.method == "POST":
+        unitform = get_object_or_404(UOMMaster,instance = unit)
+        if unitform.is_valid():
+            unitform.save()
+            return redirect('uommaster')
+    else:
+        unitform = UnitForm()
+    return render(req,'unitform.html',{'unitform':unitform})
+
+def delete_unit(req,unit_id):
+    unit = get_object_or_404(UOMMaster,pk=unit_id)
+    unit.delete()
+    return redirect('uommaster')
+# -------- UOM View End------------------
