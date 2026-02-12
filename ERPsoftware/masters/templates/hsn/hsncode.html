@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}
+HSN Code Creation
+{% endblock %}
+{% block content %}
+<h1>HSN Codes</h1>
+<table class="table table-hover table-striped table-bordered">
+    <tr>
+        <th>Sr. No.</th>
+        <th>HSN Code</th>
+        <th>igst rate</th>
+        <th>cess rate</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in hsn %}
+    <tr>
+        <th>{{ forloop.counter }}</th>
+        <th>{{ i.hsn_code }}</th>
+        <th>{{ i.igst }}</th>
+        <th>{{ i.cess }}</th>
+        <th>
+            <a class="btn btn-primary" href="{% url 'edit_hsn' i.id %}" >Edit</a>
+            <a class="btn btn-danger"href="{% url 'delete_hsn' i.id %}">Delete</a>
+        </th>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'add_hsn' %}" class="btn btn-primary">Add HSN Code</a>
+{% endblock %}

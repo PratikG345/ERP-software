@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+{% if hsnform.instance.pk %}Edit HSN Code
+{% else %}
+Add HSN Code
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1>
+    {% if hsnform.instance.pk %}
+    Edit HSN Code
+    {% else %}
+    ADD HSN Code
+    {% endif %}
+</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ hsnform.as_p }}
+    <button class="btn btn-warning">Submit</button>
+</form>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster
-from .forms import StockLocForm, CatForm, UnitForm, HSNForm
+from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm
 # Create your views here.
 
 def home(req):
@@ -12,7 +12,7 @@ def itemMaster(req):
 # -------- HSN View Start------------------
 def hsncode(req):
     hsn = HSNCode.objects.all()
-    return render(req,'hsncode.html'{'hsn':hsn})
+    return render(req,'hsn/hsncode.html',{'hsn':hsn})
 
 def add_hsn(req):
     if req.method == "POST":
@@ -22,7 +22,7 @@ def add_hsn(req):
             return redirect('hsncode')
     else:
         hsnform = HSNForm()
-    return render(req,'hsnform.html',{'hsnform':hsnform})
+    return render(req,'hsn/hsnform.html',{'hsnform':hsnform})
 
 def edit_hsn(req,hsn_id):
     hsn = get_object_or_404(HSNCode,pk=hsn_id)
@@ -30,7 +30,7 @@ def edit_hsn(req,hsn_id):
         hsnform = HSNForm(req.POST,instance=hsn)
     else:
         hsnform = HSNForm(instance=hsn)
-    return render(req,'hsnform.html',{'hsnform':hsnform})
+    return render(req,'hsn/hsnform.html',{'hsnform':hsnform})
 
 def delete_hsn(req,hsn_id):
     hsn = get_object_or_404(HSNCode,pk=hsn_id)
@@ -38,8 +38,35 @@ def delete_hsn(req,hsn_id):
     return redirect('hsncode')
 # -------- HSN View End------------------
 
+# -------- SAC View Start------------------
 def saccode(req):
-    return render(req,'saccode.html')
+    sac = SACCode.objects.all()
+    return render(req,'sac/saccode.html',{'sac':sac})
+
+def add_sac(req):
+    if req.method == "POST":
+        sacform = SACForm(req.POST)
+        if sacform.is_valid():
+            sacform.save()
+            return redirect('saccode')
+    else:
+        sacform = SACForm()
+    return render(req,'sac/sacform.html',{'sacform':sacform})
+
+def edit_sac(req,sac_id):
+    sac = get_object_or_404(SACCode,pk=sac_id)
+    if req.method == "POST":
+        sacform = SACForm(req.POST,instance=sac)
+    else:
+        sacform = SACForm(instance=sac)
+    return render(req,'sac/sacform.html',{'sacform':sacform})
+
+def delete_sac(req,sac_id):
+    sac = get_object_or_404(SACCode,pk=sac_id)
+    sac.delete()
+    return redirect('saccode')
+# -------- SAC View End------------------
+
 # -------- Category View Start------------------
 def category(req):
     category = Category.objects.all()
