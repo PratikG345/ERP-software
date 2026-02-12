@@ -4,8 +4,8 @@ from decimal import Decimal
 
 # Create your models here.
 class UOMMaster(models.Model):
-    unit = models.CharField(max_length=10,default="nos")
-    fullform = models.CharField(max_length=100,default="numbers")
+    unit = models.CharField(max_length=10,blank=True)
+    fullform = models.CharField(max_length=100,blank=True)
     def __str__(self):
         return f"{self.unit}-{self.fullform}"
     

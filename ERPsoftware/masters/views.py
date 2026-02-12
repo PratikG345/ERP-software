@@ -81,9 +81,9 @@ def delete_stck_loc(req,store_id):
 # -------- UOM View Start------------------
 def uommaster(req):
     uom = UOMMaster.objects.all()
-    return render(req,'uommaster.html',{'uom':uom})
+    return render(req,'UOM/uommaster.html',{'uom':uom})
 
-def create_unit(req):
+def add_unit(req):
     if req.method == "POST":
         unitform = UnitForm(req.POST)
         if unitform.is_valid():
@@ -91,18 +91,18 @@ def create_unit(req):
             return redirect('uommaster')
     else:
         unitform = UnitForm()
-    return render(req,'unitform.html',{'unitform':unitform})
+    return render(req,'UOM/unitform.html',{'unitform':unitform})
 
 def edit_unit(req,unit_id):
-    unit = get_object_or_404(UOMMaster,pk=unit_id)
+    units = get_object_or_404(UOMMaster,pk=unit_id)
     if req.method == "POST":
-        unitform = get_object_or_404(UOMMaster,instance = unit)
+        unitform = UnitForm(req.POST,instance = units)
         if unitform.is_valid():
             unitform.save()
             return redirect('uommaster')
     else:
-        unitform = UnitForm()
-    return render(req,'unitform.html',{'unitform':unitform})
+        unitform = UnitForm(instance=units)
+    return render(req,'UOM/unitform.html',{'unitform':unitform})
 
 def delete_unit(req,unit_id):
     unit = get_object_or_404(UOMMaster,pk=unit_id)
