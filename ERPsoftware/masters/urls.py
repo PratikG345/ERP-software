@@ -2,12 +2,27 @@ from django.urls import path
 from .views import itemMaster,home,hsncode,saccode,stocklocation,category,uommaster,add_stck_loc,edit_stck_loc,delete_stck_loc
 from .views import add_category,edit_category,delete_category
 from .views import add_unit,edit_unit,delete_unit
+from .views import add_hsn,edit_hsn,delete_hsn
+from .views import add_sac,edit_sac,delete_sac
 
 urlpatterns = [
     path('',home,name="home"),
     path('itemMaster/',itemMaster,name="itemMaster"),
-    path('hsncode/',hsncode,name="hsncode"),
-    path('saccode/',saccode,name="saccode"),
+    
+    #-----------HSN Code----------------------
+    path('HSNCode/',hsncode,name="hsncode"),
+    path('HSNCode/add_hsn',add_hsn,name="add_hsn"),
+    path('HSNCode/edit_hsn/<int:hsn_id>',edit_hsn,name="edit_hsn"),
+    path('HSNCode/delete_hsn/<int:hsn_id>',delete_hsn,name="delete_hsn"),
+    #-------------------------------------------
+    
+     #-----------SAC Code----------------------
+    path('SACCode/add_sac',add_sac,name="add_sac"),
+    path('SACCode/',saccode,name="saccode"),
+    path('SACCode/edit_sac/<int:sac_id>',edit_sac,name="edit_sac"),
+    path('SACCode/delete_sac/<int:sac_id>',delete_sac,name="delete_sac"),
+    #-------------------------------------------
+    
     # -----------Stock Location----------------
     path('stocklocation/',stocklocation,name="stocklocation"),
     path('stocklocation/add_stock',add_stck_loc,name="add_stck_loc"),
@@ -15,7 +30,7 @@ urlpatterns = [
     path('stocklocation/delete_stock/<int:store_id>',delete_stck_loc,name="delete_stck_loc"),
     #-------------------------------------------
     
-    # -----------Stock Location----------------
+    # -----------Category----------------
     path('category/',category,name="category"),
     path('category/add_category',add_category,name="add_category"),
     path('category/edit_category/<int:cat_id>',edit_category,name="edit_category"),
