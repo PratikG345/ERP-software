@@ -36,7 +36,7 @@ class HSNCode(models.Model):
     
     
 class SACCode(models.Model):
-    sac_code = models.CharField(max_length=8,unique=True)
+    sac_code = models.CharField(max_length=6,unique=True)
     description = models.TextField(blank=True,null=True)
     igst = models.DecimalField(max_digits=5,decimal_places=2)
     sgst = models.DecimalField(max_digits=5,decimal_places=2,editable=False)
