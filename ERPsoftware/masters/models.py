@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from decimal import Decimal
 
 # Create your models here.
@@ -16,7 +17,16 @@ class State(models.Model):
         return f"{self.state}"
     
 class HSNCode(models.Model):
-    hsn_code = models.CharField(max_length=8,unique=True)
+    hsn_code = models.CharField(
+        max_length=8,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r'^(\d{2}|\d{4}|\d{6}|\d{8})$',
+                message="HSN code must be of 2,4,6,8 digits.",
+            )
+        ]
+    )
     description = models.TextField(blank=True,null=True)
     igst = models.DecimalField(max_digits=5,decimal_places=2)
     sgst = models.DecimalField(max_digits=5,decimal_places=2,editable=False)
@@ -36,7 +46,16 @@ class HSNCode(models.Model):
     
     
 class SACCode(models.Model):
-    sac_code = models.CharField(max_length=6,unique=True)
+    sac_code = models.CharField(
+        max_length=8,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r'^[99]{4}$',
+                message='SAC code must be of 6 digits.',
+            )
+        ]
+        )
     description = models.TextField(blank=True,null=True)
     igst = models.DecimalField(max_digits=5,decimal_places=2)
     sgst = models.DecimalField(max_digits=5,decimal_places=2,editable=False)
