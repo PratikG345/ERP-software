@@ -4,9 +4,10 @@ All Items
 {% endblock %}
 {% block content %}
 <h1>Items List</h1>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover table-sm">
     <tr>
         <th>Sr.no</th>
+        <th>ItemType</th>
         <th>Name</th>
         <th>Unit</th>
         <th>Actions</th>
@@ -14,6 +15,7 @@ All Items
     {% for i in item %}
     <tr>
         <th>{{ forloop.counter }}</th>
+        <th>{{ i.item_type }}</th>
         <th>{{ i.name }}</th>
         <th>{{ i.unit.unit }}</th>
         <th>
