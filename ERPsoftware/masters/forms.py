@@ -25,3 +25,8 @@ class SACForm(forms.ModelForm):
     class Meta:
         model = SACCode
         fields = ['sac_code','description','igst','cess']
+        
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = ItemMaster
+        fields = ['name','print_name','item_type','unit','category','bom_required','hsncode','saccode','supply_type']
