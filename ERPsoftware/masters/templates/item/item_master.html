@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}
+All Items
+{% endblock %}
+{% block content %}
+<h1>Items List</h1>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Sr.no</th>
+        <th>Name</th>
+        <th>Unit</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in item %}
+    <tr>
+        <th>{{ forloop.counter }}</th>
+        <th>{{ i.name }}</th>
+        <th>{{ i.unit.unit }}</th>
+        <th>
+            <a href="{% url 'edit_item' i.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'delete_item' i.id %}" class="btn btn-danger">Delete</a>
+        </th>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'add_item' %}" class="btn btn-warning">Add New Item</a>
+
+{% endblock %}

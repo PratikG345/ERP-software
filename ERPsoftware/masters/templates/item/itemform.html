@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}
+{% if item.instance.pk %}
+Edit Product or Item
+{% else %}
+Add Product or Item
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>
+    {% if item.instance.pk %}
+    Edit Product or Item
+    {% else %}
+    Add Product or Item
+    {% endif %}
+</h1>
+
+<form method="post" class="form">
+    {% csrf_token %}
+    {{ itemform.as_p }}
+    <button class="btn btn-warning">Submit</button>
+</form>
+
+{% endblock %}

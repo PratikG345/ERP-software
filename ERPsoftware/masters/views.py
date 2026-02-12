@@ -1,13 +1,42 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster
-from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm
+from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm
 # Create your views here.
 
 def home(req):
     return render(req,'home.html')
 
+# -------- Item Master Start------------------
 def itemMaster(req):
-    return render(req,'item_master.html')
+    item = ItemMaster.objects.all()
+    return render(req,'item/item_master.html',{'item':item})
+
+def add_item(req):
+    if req.method == "POST":
+        itemform = ItemForm(req.POST)
+        if itemform.is_valid():
+            itemform.save()
+            return redirect('itemMaster')
+    else:
+        itemform = ItemForm()
+    return render(req,'item/itemform.html',{'itemform':itemform})
+
+def edit_item(req,item_id):
+    item = get_object_or_404(ItemMaster,pk = item_id)
+    if req.method == "POST":
+        itemform = ItemForm(req.POST,instance=item)
+        if itemform.is_valid():
+            itemform.save()
+            return redirect('itemMaster')
+    else:
+        itemform = ItemForm(instance=item)
+    return render(req,'item/itemform.html',{'itemform':itemform})
+
+def delete_item(req,item_id):
+    item = get_object_or_404(ItemMaster,pk=item_id)
+    item.delete()
+    return redirect('itemMaster')
+# -------- Item Master End------------------
 
 # -------- HSN View Start------------------
 def hsncode(req):

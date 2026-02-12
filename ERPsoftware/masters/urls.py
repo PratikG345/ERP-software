@@ -4,10 +4,16 @@ from .views import add_category,edit_category,delete_category
 from .views import add_unit,edit_unit,delete_unit
 from .views import add_hsn,edit_hsn,delete_hsn
 from .views import add_sac,edit_sac,delete_sac
+from .views import add_item,edit_item,delete_item
 
 urlpatterns = [
     path('',home,name="home"),
+    #-----------Item Master----------------------
     path('itemMaster/',itemMaster,name="itemMaster"),
+    path('itemMaster/add_item',add_item,name="add_item"),
+    path('itemMaster/edit_item/<int:item_id>',edit_item,name="edit_item"),
+    path('itemMaster/delete_item/<int:item_id>',delete_item,name="delete_item"),
+    #-------------------------------------------
     
     #-----------HSN Code----------------------
     path('HSNCode/',hsncode,name="hsncode"),
