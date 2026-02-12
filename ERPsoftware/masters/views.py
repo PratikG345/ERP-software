@@ -86,9 +86,9 @@ def uommaster(req):
 def create_unit(req):
     if req.method == "POST":
         unitform = UnitForm(req.POST)
-        if unitform.is_valid()
-        unitform.save()
-        return redirect('uommaster')
+        if unitform.is_valid():
+            unitform.save()
+            return redirect('uommaster')
     else:
         unitform = UnitForm()
     return render(req,'unitform.html',{'unitform':unitform})
