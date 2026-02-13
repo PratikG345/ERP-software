@@ -1,25 +1,31 @@
-{% extends "layout.html" %}
-{% block title %}
-Category Creation
-{% endblock %}
+{% extends "layout.html" %} {% block title %} Category Creation {% endblock %}
 {% block content %}
 <h1>All Categories</h1>
-<table class="table table-hover table-striped table-bordered">
+<table class="table table-hover table-striped table-bordered datatable display">
+  <thead>
     <tr>
-        <th>Sr. No.</th>
-        <th>Category Name</th>
-        <th>Actions</th>
+      <td>Sr. No.</td>
+      <td>Category Name</td>
+      <td>Actions</td>
     </tr>
+  </thead>
+  <tbody>
     {% for i in category %}
     <tr>
-        <th>{{ forloop.counter }}</th>
-        <th>{{ i.category }}</th>
-        <th>
-            <a class="btn btn-primary" href="{% url 'edit_category' i.id %}" >Edit</a>
-            <a class="btn btn-danger"href="{% url 'delete_category' i.id %}">Delete</a>
-        </th>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ i.category }}</td>
+      <td>
+        <a class="btn btn-primary" href="{% url 'edit_category' i.id %}"
+          >Edit</a
+        >
+        <a class="btn btn-danger" href="{% url 'delete_category' i.id %}"
+          >Delete</a
+        >
+      </td>
     </tr>
+
     {% endfor %}
+  </tbody>
 </table>
 <a href="{% url 'add_category' %}" class="btn btn-primary">Add Store</a>
 {% endblock %}

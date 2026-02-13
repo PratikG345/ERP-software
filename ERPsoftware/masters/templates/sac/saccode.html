@@ -4,26 +4,31 @@ SAC Code Creation
 {% endblock %}
 {% block content %}
 <h1>SAC Codes</h1>
-<table class="table table-hover table-striped table-bordered">
-    <tr>
-        <th>Sr. No.</th>
-        <th>SAC Code</th>
-        <th>igst rate</th>
-        <th>cess rate</th>
-        <th>Actions</th>
-    </tr>
-    {% for i in sac %}
-    <tr>
-        <th>{{ forloop.counter }}</th>
-        <th>{{ i.sac_code }}</th>
-        <th>{{ i.igst }}</th>
-        <th>{{ i.cess }}</th>
-        <th>
-            <a class="btn btn-primary" href="{% url 'edit_sac' i.id %}" >Edit</a>
-            <a class="btn btn-danger"href="{% url 'delete_sac' i.id %}">Delete</a>
-        </th>
-    </tr>
-    {% endfor %}
+<table class="table table-hover table-striped table-bordered datatable display">
+    <thead>
+        <tr>
+            <td>Sr. No.</td>
+            <td>SAC Code</td>
+            <td>igst rate</td>
+            <td>cess rate</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in sac %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.sac_code }}</td>
+            <td>{{ i.igst }}</td>
+            <td>{{ i.cess }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'edit_sac' i.id %}" >Edit</a>
+                <a class="btn btn-danger"href="{% url 'delete_sac' i.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
 </table>
 <a href="{% url 'add_sac' %}" class="btn btn-primary">Add SAC Code</a>
 {% endblock %}

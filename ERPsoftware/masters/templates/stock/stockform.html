@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
 {% if stockform.instance.pk %}Edit Stock Location
 {% else %}
@@ -15,7 +16,7 @@ Add Stock Location
 </h1>
 <form method="post">
     {% csrf_token %}
-    {{ stockform.as_p }}
+    {{ stockform|crispy }}
     <button class="btn btn-warning">Submit</button>
 </form>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
 {% if hsnform.instance.pk %}Edit HSN Code
 {% else %}
@@ -15,7 +16,7 @@ Add HSN Code
 </h1>
 <form method="post">
     {% csrf_token %}
-    {{ hsnform.as_p }}
+    {{ hsnform|crispy }}
     <button class="btn btn-warning">Submit</button>
 </form>
 {% endblock %}

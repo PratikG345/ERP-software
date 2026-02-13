@@ -4,24 +4,32 @@ UOM Creation
 {% endblock %}
 {% block content %}
 <h1>All Unit</h1>
-<table class=" table table-hover table-striped table-bordered">
-    <tr>
-        <th>Sr. No.</th>
-        <th>Unit</th>
-        <th>Fullform</th>
-        <th>Actions</th>
-    </tr>
-    {% for i in uom %}
-    <tr>
-        <th>{{ forloop.counter }}</th>
-        <th>{{ i.unit }}</th>
-        <th>{{ i.fullform }}</th>
-        <th>
-            <a class="btn btn-primary" href="{% url 'edit_unit' i.id %}" >Edit</a>
-            <a class="btn btn-danger"href="{% url 'delete_unit' i.id %}">Delete</a>
-        </th>
-    </tr>
-    {% endfor %}
+<table class=" table table-hover table-striped table-bordered datatable display">
+    <thead>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Unit</th>
+            <th>Fullform</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for i in uom %}
+            <tr>
+                <th>{{ forloop.counter }}</th>
+                <th>{{ i.unit }}</th>
+                <th>{{ i.fullform }}</th>
+                <th>
+                    <a class="btn btn-primary" href="{% url 'edit_unit' i.id %}" >Edit</a>
+                    <a class="btn btn-danger"href="{% url 'delete_unit' i.id %}">Delete</a>
+                </th>
+            </tr>
+        {% endfor %}
+    </tbody>
+    
 </table>
 <a href="{% url 'add_unit' %}" class="btn btn-primary">Add Unit</a>
+
+
 {% endblock %}

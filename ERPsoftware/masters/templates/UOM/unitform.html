@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load crispy_forms_tags %}
 {% block title %}
 {% if unitform.instance.pk %}Edit Unit
 {% else %}
@@ -15,7 +16,7 @@ Add Unit
 </h1>
 <form method="post">
     {% csrf_token %}
-    {{ unitform.as_p }}
+    {{ unitform|crispy }}
     <button class="btn btn-warning">Submit</button>
 </form>
 {% endblock %}
