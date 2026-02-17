@@ -8,7 +8,7 @@ class UOMMaster(models.Model):
     unit = models.CharField(max_length=10,blank=True)
     fullform = models.CharField(max_length=100,blank=True)
     def __str__(self):
-        return f"{self.unit}-{self.fullform}"
+        return f"{self.unit}"
     
 class State(models.Model):
     state = models.CharField(max_length=100,unique=True)
@@ -90,12 +90,12 @@ class ItemMaster(models.Model):
         ("Services","Services"),
     ]
     itemtype_choices = [
-        ("Finished Goods","FG",),
-        ("Semi-Finished Goods","SFG",),
-        ("Raw Materials","RM",),
-        ("Consumables","CN",),
-        ("Hardware","HW",),
-        ("Others","OTH",),
+        ("FG","FG",),
+        ("SFG","SFG",),
+        ("RM","RM",),
+        ("CN","CN",),
+        ("HW","HW",),
+        ("OTH","OTH",),
     ]
     name = models.CharField(max_length=200,unique=True)
     print_name = models.CharField(max_length=200,blank=True,null=True)
@@ -107,6 +107,7 @@ class ItemMaster(models.Model):
     saccode = models.ForeignKey(SACCode,on_delete=models.PROTECT,blank=True,null=True)
     supply_type = models.CharField(max_length=20,choices=supply_choices)
     is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
     
     def clean(self):
         if self.supply_type == "Goods":
