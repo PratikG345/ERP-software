@@ -125,7 +125,12 @@ class ItemMaster(models.Model):
     
     def __str__(self):
         return f"{self.item_type} - {self.name}"
-    
+
+class StateMaster(models.Model):
+    state = models.CharField(max_length=100,unique=True)
+    def __str__(self):
+        return f"{self.state}"
+
 class AccountMaster(models.Model):
     account_choices = [
         ("Customer","Customer"),
@@ -135,8 +140,8 @@ class AccountMaster(models.Model):
         ("Capital","Capital"),
         ("Fixed Asset","Fixed Asset"),
     ]
-    ledger_name = models.CharField(max_length=100,blank=False,null=True)
-    GST_No = models.CharField(max_length=15,blank=False,null=True)
+    ledger_name = models.CharField(max_length=100,blank=False,unique=True,default=" ")
+    GST_No = models.CharField(max_length=15,blank=True,unique=True,null=True)
     Address = models.TextField(blank=True,null=True)
     contact_person = models.CharField(max_length=50,null=True,blank=True)
     phone1 = models.CharField(max_length=15,null=True,blank=True)
@@ -148,7 +153,19 @@ class AccountMaster(models.Model):
     AC_No = models.CharField(max_length=200,null=True,blank=True)
     IFSC_code = models.CharField(max_length=200,null=True,blank=True)
     Branch_code = models.CharField(max_length=200,null=True,blank=True)
+    state = models.ForeignKey(StateMaster,on_delete=models.PROTECT,null=True)
     created_at =  models.DateTimeField(auto_now_add=True,null=True)
+    is_active = models.BooleanField(default=True)
     
     def __str__(self):
         return f"{self.ledger_name}"
+    
+    def clean(self):
+        super().clean()
+        if self.Account_category in ["Customer","Supplier"]:
+            if not self.GST_No:
+                raise ValidationError("GST no. is required for this account type.")
+        else:
+            if self.GST_No:
+                raise ValidationError("GST No. not required for this account type.")    
+        
