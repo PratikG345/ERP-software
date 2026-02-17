@@ -1,1 +1,16 @@
 {% extends "layout.html" %}
+{% block title %}
+ERP Dashboard
+{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>Total Items : {{item}}</p>
+<p>Total Stores : {{stock}}</p>
+<p>Total FG Items : {{fg}}</p>
+<p>Total RM Items : {{rm}}</p>
+<p>Latest Item : 
+    {% for i in latest %}
+    <li class="mx-4">{{i.item_type}} - {{i.name}} - {{i.unit}}</li>
+    {% endfor %}
+</p>
+{% endblock %}
