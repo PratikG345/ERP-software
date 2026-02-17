@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster,AccountMaster
-from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm
+from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm, StateForm 
 # Create your views here.
 
 def home(req):
@@ -208,6 +208,34 @@ def delete_unit(req,unit_id):
 # -------- UOM View End------------------
 
 # -------- State View Start----------------
+def state(req):
+    state = State.objects.all()
+    return render(req,"state/state.html",{'state':state})
 
+def add_state(req):
+    if req.method == "POST":
+        stateform = StateForm(req.POST)
+        if stateform.is_valid():
+            stateform.save()
+            return redirect('state')
+    else:
+        stateform = StateForm()
+    return render(req,'state/stateform.html',{'stateform':stateform})
+
+def edit_state(req,state_id):
+    state = get_object_or_404(State,pk=state_id)
+    if req.method == "POST":
+        stateform = StateForm(req.POST,instance=state)
+        if stateform.is_valid():
+            stateform.save()
+            return redirect('state')
+    else:
+        stateform = StateForm(instance=state)
+    return render(req,'state/stateform.html',{'stateform':stateform})
+
+def delete_state(req,state_id):
+    state = get_object_or_404(State,pk=state_id)
+    state.delete()
+    return redirect('state')
 # -------- State View End------------------
 
