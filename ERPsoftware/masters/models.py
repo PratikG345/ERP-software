@@ -126,11 +126,6 @@ class ItemMaster(models.Model):
     def __str__(self):
         return f"{self.item_type} - {self.name}"
 
-class StateMaster(models.Model):
-    state = models.CharField(max_length=100,unique=True)
-    def __str__(self):
-        return f"{self.state}"
-
 class AccountMaster(models.Model):
     account_choices = [
         ("Customer","Customer"),
@@ -153,7 +148,7 @@ class AccountMaster(models.Model):
     AC_No = models.CharField(max_length=200,null=True,blank=True)
     IFSC_code = models.CharField(max_length=200,null=True,blank=True)
     Branch_code = models.CharField(max_length=200,null=True,blank=True)
-    state = models.ForeignKey(StateMaster,on_delete=models.PROTECT,null=True)
+    state = models.ForeignKey(State,on_delete=models.PROTECT,null=True)
     created_at =  models.DateTimeField(auto_now_add=True,null=True)
     is_active = models.BooleanField(default=True)
     

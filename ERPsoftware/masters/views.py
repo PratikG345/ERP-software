@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster
+from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster,AccountMaster
 from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm
 # Create your views here.
 
@@ -206,3 +206,8 @@ def delete_unit(req,unit_id):
     unit.delete()
     return redirect('uommaster')
 # -------- UOM View End------------------
+
+# -------- State View Start----------------
+
+# -------- State View End------------------
+
