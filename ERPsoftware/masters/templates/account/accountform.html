@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% if accountform.instance.pk %}Edit Account
+{% else %}
+Add Account
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1>
+    {% if accountform.instance.pk %}
+    Edit Account
+    {% else %}
+    ADD Account
+    {% endif %}
+</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ accountform|crispy }}
+    <button class="btn btn-warning">Submit</button>
+</form>
+{% endblock %}
