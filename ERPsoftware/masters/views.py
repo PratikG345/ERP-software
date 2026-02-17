@@ -15,6 +15,7 @@ def home(req):
         'item': item,
         'stock': stock,
         'fg':fg_item,
+        'account':account,
         'rm':rm_item,
         'latest':latest,
         'latest_acc':latest_acc,

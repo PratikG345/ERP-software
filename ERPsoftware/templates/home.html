@@ -2,22 +2,101 @@
 {% block title %}
 ERP Dashboard
 {% endblock %}
-{% block content %}
-<h1>Dashboard</h1>
-<p>Total Items : {{item}}</p>
-<p>Total Account : {{account}}</p>
-<p>Total Stores : {{stock}}</p>
-<p>Total FG Items : {{fg}}</p>
-<p>Total RM Items : {{rm}}</p>
-<p>Latest Item : 
-    {% for i in latest %}
-    <li class="mx-4">{{i.item_type}} - {{i.name}} - {{i.unit}}</li>
-    {% endfor %}
-</p>
 
-<p>Latest Accounts  : 
-    {% for i in latest_acc %}
-    <li class="mx-4">{{i.Account_category}} - {{i.ledger_name}} - {{i.GST_No}}</li>
-    {% endfor %}
-</p>
+{% block content %}
+
+<h1 class="mb-4">Dashboard</h1>
+
+<!-- TOP SUMMARY CARDS -->
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Items</h6>
+                <h3>{{ item }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Accounts</h6>
+                <h3>{{ account }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Stores</h6>
+                <h3>{{ stock }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">FG / RM Items</h6>
+                <h5>FG: {{ fg }}</h5>
+                <h5>RM: {{ rm }}</h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ACTIVITY SECTION -->
+<div class="row g-4">
+
+    <!-- Latest Items -->
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white">
+                <strong>Latest Items</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for i in latest %}
+                        <li class="list-group-item">
+                            {{ i.item_type }} - {{ i.name }} ({{ i.unit }})
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">
+                            No items available
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Accounts -->
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white">
+                <strong>Latest Accounts</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for i in latest_acc %}
+                        <li class="list-group-item">
+                            {{ i.Account_category }} - {{ i.ledger_name }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">
+                            No accounts available
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}
