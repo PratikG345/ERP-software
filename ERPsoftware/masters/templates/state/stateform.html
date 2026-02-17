@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% if stateform.instance.pk %}Edit State
+{% else %}
+Add State
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1>
+    {% if stateform.instance.pk %}
+    Edit State
+    {% else %}
+    ADD State
+    {% endif %}
+</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ stateform|crispy }}
+    <button class="btn btn-warning">Submit</button>
+</form>
+{% endblock %}
