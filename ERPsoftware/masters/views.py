@@ -4,7 +4,19 @@ from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm
 # Create your views here.
 
 def home(req):
-    return render(req,'home.html')
+    item = ItemMaster.objects.all().count()
+    fg_item = ItemMaster.objects.filter(item_type = 'FG').count()
+    rm_item = ItemMaster.objects.filter(item_type = 'RM').count()
+    latest = ItemMaster.objects.order_by('-created_at')[:5]
+    stock = StockLocation.objects.all().count()
+    context = {
+        'item': item,
+        'stock': stock,
+        'fg':fg_item,
+        'rm':rm_item,
+        'latest':latest,
+    }
+    return render(req,'home.html',context)
 
 # -------- Item Master Start------------------
 def itemMaster(req):
