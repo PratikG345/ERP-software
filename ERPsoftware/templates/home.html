@@ -5,12 +5,19 @@ ERP Dashboard
 {% block content %}
 <h1>Dashboard</h1>
 <p>Total Items : {{item}}</p>
+<p>Total Account : {{account}}</p>
 <p>Total Stores : {{stock}}</p>
 <p>Total FG Items : {{fg}}</p>
 <p>Total RM Items : {{rm}}</p>
 <p>Latest Item : 
     {% for i in latest %}
     <li class="mx-4">{{i.item_type}} - {{i.name}} - {{i.unit}}</li>
+    {% endfor %}
+</p>
+
+<p>Latest Accounts  : 
+    {% for i in latest_acc %}
+    <li class="mx-4">{{i.Account_category}} - {{i.ledger_name}} - {{i.GST_No}}</li>
     {% endfor %}
 </p>
 {% endblock %}

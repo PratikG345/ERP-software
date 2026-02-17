@@ -5,9 +5,11 @@ from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm, 
 
 def home(req):
     item = ItemMaster.objects.all().count()
+    account = AccountMaster.objects.all().count()
     fg_item = ItemMaster.objects.filter(item_type = 'FG').count()
     rm_item = ItemMaster.objects.filter(item_type = 'RM').count()
     latest = ItemMaster.objects.order_by('-created_at')[:5]
+    latest_acc = AccountMaster.objects.order_by('-created_at')[:5]
     stock = StockLocation.objects.all().count()
     context = {
         'item': item,
@@ -15,6 +17,7 @@ def home(req):
         'fg':fg_item,
         'rm':rm_item,
         'latest':latest,
+        'latest_acc':latest_acc,
     }
     return render(req,'home.html',context)
 
