@@ -1,5 +1,5 @@
 from django import forms
-from .models import HSNCode,ItemMaster,SACCode,Category,StockLocation,UOMMaster
+from .models import HSNCode,ItemMaster,SACCode,Category,StockLocation,UOMMaster,State
 
 class StockLocForm(forms.ModelForm):
     class Meta:
@@ -30,3 +30,8 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = ItemMaster
         fields = ['name','print_name','item_type','unit','category','bom_required','hsncode','saccode','supply_type']
+        
+class StateForm(forms.ModelForm):
+    class Meta:
+        model = State
+        fields = ['state','state_code']
