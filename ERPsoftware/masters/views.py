@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster,AccountMaster
-from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm, StateForm 
+from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm, StateForm,AccountForm
 # Create your views here.
 
 def home(req):
@@ -239,3 +239,34 @@ def delete_state(req,state_id):
     return redirect('state')
 # -------- State View End------------------
 
+# -------- Account View Start----------------
+def account(req):
+    account = AccountMaster.objects.all()
+    return render(req,"account/accountmaster.html",{'account':account})
+
+def add_account(req):
+    if req.method == "POST":
+        accountform = AccountForm(req.POST)
+        if accountform.is_valid():
+            accountform.save()
+            return redirect('account')
+    else:
+        accountform = AccountForm()
+    return render(req,'account/accountform.html',{'accountform':accountform})
+
+def edit_account(req,account_id):
+    account = get_object_or_404(AccountMaster,pk=account_id)
+    if req.method == "POST":
+        accountform = AccountForm(req.POST,instance=account)
+        if accountform.is_valid():
+            accountform.save()
+            return redirect('account')
+    else:
+        accountform = AccountForm(instance=account)
+    return render(req,'account/accountform.html',{'accountform':accountform})
+
+def delete_account(req,account_id):
+    account = get_object_or_404(AccountMaster,pk=account_id)
+    account.delete()
+    return redirect('account')
+# -------- account View End------------------
