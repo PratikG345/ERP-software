@@ -125,3 +125,29 @@ class ItemMaster(models.Model):
     
     def __str__(self):
         return f"{self.item_type} - {self.name}"
+    
+class AccountMaster(models.Model):
+    account_choices = [
+        ("Customer","Customer"),
+        ("Supplier","Supplier"),
+        ("Bank","Bank"),
+        ("Cash","Cash"),
+        ("Capital","Capital"),
+        ("Fixed Asset","Fixed Asset"),
+    ]
+    ledger_name = models.CharField(max_length=100,blank=False,null=True)
+    GST_No = models.CharField(max_length=15,blank=False,null=True)
+    Address = models.TextField(blank=True,null=True)
+    contact_person = models.CharField(max_length=50,null=True,blank=True)
+    phone1 = models.CharField(max_length=15,null=True,blank=True)
+    phone2 = models.CharField(max_length=15,null=True,blank=True)
+    email = models.EmailField(null=True,blank=True)
+    IT_Pan_No = models.CharField(max_length=10,blank=False,null=True)
+    Account_category = models.CharField(max_length=20,choices=account_choices)
+    Bank_name = models.CharField(max_length=200,null=True,blank=True)
+    AC_No = models.CharField(max_length=200,null=True,blank=True)
+    IFSC_code = models.CharField(max_length=200,null=True,blank=True)
+    Branch_code = models.CharField(max_length=200,null=True,blank=True)
+    
+    def __str__(self):
+        return f"{self.ledger_name}"
