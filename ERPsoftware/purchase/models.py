@@ -1,5 +1,6 @@
 from django.db import models
 from masters.models import AccountMaster,ItemMaster,Unit,HSNCode
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -12,6 +13,10 @@ class PurchaseOrder(models.Model):
     po_type = models.ForeignKey(PO_type, on_delete=models.PROTECT)
     payment_terms = models.CharField(max_length=200, blank=True, null=True)
     transport = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User,on_delete=models.PROTECT)
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User,on_delete=models.PROTECT)
 
     def __str__(self):
         return f"PO-{self.id}"
