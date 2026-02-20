@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+{% if po_type_form.instance.pk %}
+Edit PO Type
+{% else %}
+Add PO Type
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if po_type_form.instance.pk %}
+<h1>Edit PO Type</h1>
+{% else %}
+<h1>Add PO Type</h1>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{po_type_form|crispy}}
+    <button class="btn btn-warning">Submit</button>
+</form>
+{% endblock %}
