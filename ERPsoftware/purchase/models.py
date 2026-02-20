@@ -1,5 +1,5 @@
 from django.db import models
-from masters.models import AccountMaster,ItemMaster,Unit,HSNCode
+from masters.models import AccountMaster,ItemMaster,HSNCode,UOMMaster
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -14,9 +14,13 @@ class PurchaseOrder(models.Model):
     payment_terms = models.CharField(max_length=200, blank=True, null=True)
     transport = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User,on_delete=models.PROTECT)
+    created_by = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="purchase_orders_created"
+    )
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(User,on_delete=models.PROTECT)
+    updated_by = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="purchase_orders_updated"
+    )
 
     def __str__(self):
         return f"PO-{self.id}"
@@ -25,7 +29,7 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     purchase_order = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, related_name="lines")
     item = models.ForeignKey(ItemMaster, on_delete=models.PROTECT)
-    unit = models.ForeignKey(Unit, on_delete=models.PROTECT)
+    unit = models.ForeignKey(UOMMaster, on_delete=models.PROTECT)
 
     qty = models.DecimalField(max_digits=10, decimal_places=2)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
