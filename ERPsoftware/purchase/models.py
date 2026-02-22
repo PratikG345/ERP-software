@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 class PO_type(models.Model):
     PO_type = models.CharField(max_length=100,unique=True)
+    
+    def __str__(self):
+        return f"{self.PO_type}"
 
 class PurchaseOrder(models.Model):
     po_date = models.DateField(auto_now_add=True)
