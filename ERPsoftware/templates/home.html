@@ -11,38 +11,38 @@ ERP Dashboard
 <div class="row g-4 mb-4">
 
     <div class="col-md-3">
-        <div class="card shadow-sm border-0 bg-danger">
+        <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Items</h6>
-                <h3 class="text-white">{{ item }}</h3>
+                <h3>{{ item }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card shadow-sm border-0 bg-primary">
+        <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Accounts</h6>
-                <h3 class="text-white">{{ account }}</h3>
+                <h3>{{ account }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card shadow-sm border-0 bg-success">
+        <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Stores</h6>
-                <h3 class="text-white">{{ stock }}</h3>
+                <h3>{{ stock }}</h3>
             </div>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card shadow-sm border-0 bg-info">
+        <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">FG / RM Items</h6>
-                <h5 class="text-white">FG: {{ fg }}</h5>
-                <h5 class="text-white">RM: {{ rm }}</h5>
+                <h5>FG: {{ fg }}</h5>
+                <h5>RM: {{ rm }}</h5>
             </div>
         </div>
     </div>
@@ -55,10 +55,10 @@ ERP Dashboard
 
     <!-- Latest Items -->
     <div class="col-md-6">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-warning border-1">
             <div class="card-header bg-warning">
                 <strong>Latest Items</strong>
-                <a href="{% url 'itemMaster' %}">(See all)</a>
+                <a href="{% url 'itemMaster' %}" class="text-white">(See all)</a>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -78,10 +78,10 @@ ERP Dashboard
 
     <!-- Latest Accounts -->
     <div class="col-md-6">
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm border-warning border-1">
             <div class="card-header bg-warning">
                 <strong>Latest Accounts</strong>
-                <a href="{% url 'account' %}">(See all)</a>
+                <a href="{% url 'account' %}" class="text-white">(See all)</a>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
