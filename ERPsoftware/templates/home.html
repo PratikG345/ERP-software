@@ -10,7 +10,7 @@ ERP Dashboard
 <!-- TOP SUMMARY CARDS -->
 <div class="row g-4 mb-4">
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Items</h6>
@@ -19,7 +19,7 @@ ERP Dashboard
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Accounts</h6>
@@ -28,7 +28,7 @@ ERP Dashboard
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">Total Stores</h6>
@@ -37,12 +37,23 @@ ERP Dashboard
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-warning border-">
+            <div class="card-body">
+                <h6 class="text-muted">Total Purchase Orders</h6>
+                <h3>{{ po_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
         <div class="card shadow-sm border-warning border-">
             <div class="card-body">
                 <h6 class="text-muted">FG / RM Items</h6>
-                <h5>FG: {{ fg }}</h5>
-                <h5>RM: {{ rm }}</h5>
+                <div class=>
+                    <h5>FG: {{ fg }}</h5>
+                    <h5>RM: {{ rm }}</h5>
+                </div>
             </div>
         </div>
     </div>
@@ -92,6 +103,29 @@ ERP Dashboard
                     {% empty %}
                         <li class="list-group-item text-muted">
                             No accounts available
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Purchase Orders -->
+     <div class="col-md-6">
+        <div class="card shadow-sm border-warning border-1">
+            <div class="card-header bg-warning">
+                <strong>Latest Purchase Orders</strong>
+                <a href="{% url 'po' %}" class="text-white">(See all)</a>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for i in po %}
+                        <li class="list-group-item">
+                            {{ i.vendor }} - {{i.po_type}} - {{ i.created_at }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted">
+                            No Purchase Order available
                         </li>
                     {% endfor %}
                 </ul>
