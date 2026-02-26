@@ -62,20 +62,30 @@ def add_po(req):
     }
     return render(req,'purchase/purchase_form.html',context)
 
-def edit_po(req,po_id):
-    po = get_object_or_404(PurchaseOrder,pk=po_id)
+def edit_po(req, po_id):
+    po = get_object_or_404(PurchaseOrder, pk=po_id)
+
     if req.method == "POST":
-        form = PurchaseForm(req.POST,instance=po)
-        formset = PurchaseLineFormSet(req.POST,instance=po)
+        form = PurchaseForm(req.POST, instance=po)
+        formset = PurchaseLineFormSet(req.POST, instance=po)
+
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect('po')
+        else:
+            print(form.errors)
+            print(formset.errors)
+
     else:
         form = PurchaseForm(instance=po)
         formset = PurchaseLineFormSet(instance=po)
-        context = {
-        'form':form,
-        'formset':formset,
+
+    return render(req, 'purchase/purchase_form.html', {
+        'form': form,
+        'formset': formset,
         'items_units': {item.id: item.unit.id for item in ItemMaster.objects.all()}
-    }
-    return render(req,'purchase/purchase_form.html',context)
+    })
 
 def delete_po(req,po_id):
     po = get_object_or_404(PurchaseOrder,pk=po_id)
