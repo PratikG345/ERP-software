@@ -12,6 +12,7 @@ Purchase Order
         <td>Tax Amount</td>
         <td>Total Amount</td>
         <td>Date</td>
+        <td>Actions</td>
     </thead>
     <tbody>
         {% for p in po %}
@@ -22,6 +23,10 @@ Purchase Order
                 <td>{{p.tax_amount}}</td>
                 <td>{{p.total_amount}}</td>
                 <td>{{p.created_at}}</td>
+                <td>
+                    <a href="{% url 'edit_po' p.id %}" class="btn btn-primary">View</a>
+                    <a href="{% url 'delete_po' p.id %}" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
