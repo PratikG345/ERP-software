@@ -2,6 +2,7 @@ from django.db import models
 from masters.models import AccountMaster,ItemMaster,HSNCode,UOMMaster
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from decimal import Decimal, ROUND_HALF_UP
 # Create your models here.
 
 class PO_type(models.Model):
@@ -53,7 +54,7 @@ class PurchaseOrderLine(models.Model):
     qty = models.DecimalField(max_digits=10, decimal_places=2)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
 
-    igst_rate = models.DecimalField(max_digits=5, decimal_places=2,default=0)
+    igst_rate = models.DecimalField(max_digits=5, decimal_places=2,default= 0)
 
     basic_amount = models.DecimalField(max_digits=12, decimal_places=2,default=0)
     tax_amount = models.DecimalField(max_digits=12, decimal_places=2,default=0)
@@ -61,9 +62,11 @@ class PurchaseOrderLine(models.Model):
     
     def clean(self):
         self.unit = self.item.unit
-        self.basic_amount = self.qty * self.rate
-        self.tax_amount = (self.basic_amount * self.igst_rate) / 100
-        self.total_amount = self.basic_amount + self.tax_amount
+        print("IGST FROM HSN:", self.item.hsncode.igst)
+        self.igst_rate = self.item.hsncode.igst
+        self.basic_amount = (self.qty * self.rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        self.tax_amount = ((self.basic_amount * self.igst_rate) / 100).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        self.total_amount = (self.basic_amount + self.tax_amount).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
     def save(self, *args, **kwargs):
         self.full_clean()
