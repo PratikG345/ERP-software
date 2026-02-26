@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import UOMMaster,State,HSNCode,SACCode,Category,StockLocation,ItemMaster,AccountMaster
 from .forms import StockLocForm, CatForm, UnitForm, HSNForm, SACForm, ItemForm, StateForm,AccountForm
+from purchase.models import PurchaseOrder
 # Create your views here.
 
 def home(req):
@@ -11,6 +12,8 @@ def home(req):
     latest = ItemMaster.objects.order_by('-created_at')[:5]
     latest_acc = AccountMaster.objects.order_by('-created_at')[:5]
     stock = StockLocation.objects.all().count()
+    po = PurchaseOrder.objects.order_by('-created_at')[:2]
+    po_count = PurchaseOrder.objects.all().count()
     context = {
         'item': item,
         'stock': stock,
@@ -19,6 +22,8 @@ def home(req):
         'rm':rm_item,
         'latest':latest,
         'latest_acc':latest_acc,
+        'po':po,
+        'po_count':po_count,
     }
     return render(req,'home.html',context)
 
