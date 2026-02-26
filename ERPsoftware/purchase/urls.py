@@ -10,6 +10,6 @@ urlpatterns = [
     
     path('po/',po,name='po'),
     path('add_po/',add_po,name='add_po'),
-    path('edit_po/<potype_id>',edit_po,name='edit_po'),
-    path('delete_po/<potype_id>',delete_po,name='delete_po'),
+    path('edit_po/<po_id>',edit_po,name='edit_po'),
+    path('delete_po/<po_id>',delete_po,name='delete_po'),
 ]
