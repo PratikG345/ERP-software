@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import PO_type
-from .forms import PoTypeForm
+from .models import PO_type,PurchaseOrder,PurchaseOrderLine
+from .forms import PoTypeForm,PurchaseForm,PurchaseLineFormSet
+from masters.models import ItemMaster
 # Create your views
 
 def po_type(req):
@@ -32,4 +33,51 @@ def delete_po_type(req,potype_id):
     po_type = get_object_or_404(PO_type,pk=potype_id)
     po_type.delete()
     return redirect('po_type')
-    
+
+def po(req):
+    po = PurchaseOrder.objects.all()
+    context = {
+        'po':po,
+    }
+    return render(req,'purchase/purchase_order.html',context)
+
+
+def add_po(req):
+    if req.method == "POST":
+        form = PurchaseForm(req.POST)
+        formset = PurchaseLineFormSet(req.POST)
+        
+        if form.is_valid() and formset.is_valid():
+            po=form.save()
+            formset.instance=po
+            formset.save()
+            return redirect('po')
+    else:
+        form = PurchaseForm()
+        formset = PurchaseLineFormSet()
+    context = {
+        'form':form,
+        'formset':formset,
+        'items_units': {item.id: item.unit.id for item in ItemMaster.objects.all()}
+    }
+    return render(req,'purchase/purchase_form.html',context)
+
+def edit_po(req,po_id):
+    po = get_object_or_404(PurchaseOrder,pk=po_id)
+    if req.method == "POST":
+        form = PurchaseForm(req.POST,instance=po)
+        formset = PurchaseLineFormSet(req.POST,instance=po)
+    else:
+        form = PurchaseForm(instance=po)
+        formset = PurchaseLineFormSet(instance=po)
+        context = {
+        'form':form,
+        'formset':formset,
+        'items_units': {item.id: item.unit.id for item in ItemMaster.objects.all()}
+    }
+    return render(req,'purchase/purchase_form.html',context)
+
+def delete_po(req,po_id):
+    po = get_object_or_404(PurchaseOrder,pk=po_id)
+    po.delete()
+    return redirect('po')

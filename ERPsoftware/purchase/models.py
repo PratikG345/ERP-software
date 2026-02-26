@@ -1,7 +1,7 @@
 from django.db import models
 from masters.models import AccountMaster,ItemMaster,HSNCode,UOMMaster
 from django.contrib.auth.models import User
-
+from django.db.models import Sum
 # Create your models here.
 
 class PO_type(models.Model):
@@ -18,13 +18,29 @@ class PurchaseOrder(models.Model):
     transport = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="purchase_orders_created"
+        User, on_delete=models.PROTECT, related_name="purchase_orders_created",
+        null=True,
+        blank=True
     )
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="purchase_orders_updated"
+        User, on_delete=models.PROTECT, related_name="purchase_orders_updated",
+        null=True,
+        blank=True
     )
 
+    @property
+    def basic_amount(self):
+        return self.lines.aggregate(total=Sum('basic_amount'))['total'] or 0
+
+    @property
+    def tax_amount(self):
+        return self.lines.aggregate(total=Sum('tax_amount'))['total'] or 0
+
+    @property
+    def total_amount(self):
+        return self.lines.aggregate(total=Sum('total_amount'))['total'] or 0
+    
     def __str__(self):
         return f"PO-{self.id}"
 
@@ -37,15 +53,19 @@ class PurchaseOrderLine(models.Model):
     qty = models.DecimalField(max_digits=10, decimal_places=2)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
 
-    igst_rate = models.DecimalField(max_digits=5, decimal_places=2)
+    igst_rate = models.DecimalField(max_digits=5, decimal_places=2,default=0)
 
-    basic_amount = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
-    tax_amount = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
-    total_amount = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
-
-    def save(self, *args, **kwargs):
+    basic_amount = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+    tax_amount = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2,default=0)
+    
+    def clean(self):
+        self.unit = self.item.unit
         self.basic_amount = self.qty * self.rate
         self.tax_amount = (self.basic_amount * self.igst_rate) / 100
         self.total_amount = self.basic_amount + self.tax_amount
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
         super().save(*args, **kwargs)
         

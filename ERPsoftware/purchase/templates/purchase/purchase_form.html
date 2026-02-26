@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Add PO
+{% endblock %}
+{% block content %}
+<h1>Add PO</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <h2>Add Items</h2>
+    {{formset.management_form}}
+    <table class='table table-bordered display'>
+        <thead>
+            <tr>
+                <td>Item</td>
+                <td>Unit</td>
+                <td>Qty</td>
+                <td>Rate</td>
+                <td>Basic Amount</td>
+                <td>Delete</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset %}
+            <tr>
+                <td>{{form.item}}</td>
+                <td>{{form.unit}}</td>
+                <td>{{form.qty}}</td>
+                <td>{{form.rate}}</td>
+                <td>
+                    <input type="text" class="basic form-control" readonly>
+                </td>
+                <td>{{form.DELETE}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <button type="button" id="add-line" class="btn btn-success">Add Line</button>
+    </table>
+    <button class="btn btn-primary" type="submit">Save</button>
+
+<script>
+    const itemUnitMap = {{ items_units|safe }};
+</script>
+
+<script>
+    document.addEventListener("change", function(e) {
+
+        if (e.target.classList.contains("item")) {
+
+            let row = e.target.closest("tr");
+            let unitSelect = row.querySelector(".unit");
+
+            let selectedItem = e.target.value;
+
+            if (itemUnitMap[selectedItem]) {
+                unitSelect.value = itemUnitMap[selectedItem];
+            }
+        }
+    });
+
+    document.addEventListener('input',function(e){
+        if(e.target.classList.contains('qty') || 
+        e.target.classList.contains('rate')){
+            let row = e.target.closest('tr')
+            let qty = parseFloat(row.querySelector(".qty").value) || 0
+            let rate = parseFloat(row.querySelector(".rate").value) || 0
+
+            let basicfield = row.querySelector('.basic')
+            basicfield.value = (qty*rate).toFixed(2)
+            
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('add-line').addEventListener('click', function () {
+
+    let totalForms = document.querySelector('#id_lines-TOTAL_FORMS');
+    let formCount = parseInt(totalForms.value);
+
+    let tableBody = document.querySelector('tbody');
+    let firstRow = tableBody.querySelector('tr');
+
+    let newRow = firstRow.cloneNode(true);
+
+    newRow.innerHTML = newRow.innerHTML.replace(/-0-/g, `-${formCount}-`);
+    newRow.innerHTML = newRow.innerHTML.replace(/_0_/g, `_${formCount}_`);
+
+    tableBody.appendChild(newRow);
+
+    totalForms.value = formCount + 1;
+});
+</script>
+
+</form>
+{% endblock %}

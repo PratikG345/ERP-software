@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}
+Purchase Order
+{% endblock %}
+{% block content %}
+<h1>All Purchase Orders</h1>
+<table class="datatable table table-hover table-bordered display">
+    <thead>
+        <td>sr.no</td>
+        <td>vendor</td>
+        <td>Basic Amount</td>
+        <td>Tax Amount</td>
+        <td>Total Amount</td>
+        <td>Date</td>
+    </thead>
+    <tbody>
+        {% for p in po %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{p.vendor}}</td>
+                <td>{{p.basic_amount}}</td>
+                <td>{{p.tax_amount}}</td>
+                <td>{{p.total_amount}}</td>
+                <td>{{p.created_at}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'add_po' %}" class="btn btn-primary">Add Purchase Order</a>
+{% endblock %}
