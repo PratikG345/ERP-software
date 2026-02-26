@@ -24,6 +24,7 @@ Add PO
         <tbody>
             {% for form in formset %}
             <tr>
+                {{form.id}}
                 <td>{{form.item}}</td>
                 <td>{{form.unit}}</td>
                 <td>{{form.qty}}</td>
